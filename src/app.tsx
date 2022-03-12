@@ -5,11 +5,15 @@ import NotesList from './components/notesList/NotesList';
 
 function render() {
     ReactDOM.render(
-        <div className="columns-2">
-            <NotesList></NotesList>
-            <Editor></Editor>
+        <div className="flex flex-row h-full">
+            <div className="basis-1/3">
+                <NotesList></NotesList>
+            </div>
+            <div className="basis-2/3">
+                <Editor></Editor>
+            </div>
         </div>
-        , document.body);
+        , document.getElementById("root"));
 }
 
 render();
