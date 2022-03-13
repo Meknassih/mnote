@@ -1,5 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron')
+import ExposedBackendApi from './ExposedBackendApi'
+import { contextBridge } from 'electron'
 
-contextBridge.exposeInMainWorld('electronAPI', {
-    save: (data: any) => ipcRenderer.invoke('notes:save', data)
-})
+contextBridge.exposeInMainWorld('backendApi', ExposedBackendApi)

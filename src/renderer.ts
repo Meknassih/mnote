@@ -25,6 +25,10 @@
  *  });
  * ```
  */
+import ExposedBackendApi from './ExposedBackendApi';
+declare global {
+    interface Window { backendApi: typeof ExposedBackendApi; }
+}
 
 import '../dist/generated.css';
 
