@@ -1,8 +1,11 @@
 import { IpcMainInvokeEvent } from 'electron';
+import storageController from './storage.controller';
 
 class NotesController {
-    async saveAll(event: IpcMainInvokeEvent, data: any) {
-        console.log("saveAll ", data)
+    async save(event: IpcMainInvokeEvent, data: any) {
+        storageController.db.data.notes.push(data)
+        await storageController.db.write()
+        console.log("saveAll database dump", storageController.db.data)
         return "done"
     }
 }

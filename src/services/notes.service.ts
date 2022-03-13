@@ -5,8 +5,8 @@ declare namespace window {
 };
 
 class NotesService {
-    async saveAll(data: any): Promise<string> {
-        return await window.electronAPI.saveAll(data)
+    async save(data: any): Promise<string> {
+        return await window.electronAPI.save(data)
     }
 }
 
