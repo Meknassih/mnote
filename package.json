@@ -1,8 +1,8 @@
 {
   "name": "mnote",
-  "productName": "mnote",
+  "productName": "Mnote",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Simple, local, note taking app",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -76,6 +76,7 @@
     "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
     "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.63",
+    "@types/lodash": "^4.14.179",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
     "@vercel/webpack-asset-relocator-loader": "^1.7.0",
@@ -100,6 +101,7 @@
     "@types/react": "^17.0.40",
     "@types/react-dom": "^17.0.13",
     "electron-squirrel-startup": "^1.0.0",
+    "lodash": "^4.17.21",
     "lowdb": "^3.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

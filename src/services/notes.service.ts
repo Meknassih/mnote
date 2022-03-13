@@ -1,7 +1,12 @@
+import { Note } from '../controllers/storage.controller';
+
 class NotesService {
-    async save(data: any): Promise<string> {
-        console.log("window.backendApi", window.backendApi)
-        return await window.backendApi.save(data)
+    async save(note: Note): Promise<string> {
+        return await window.backendApi.save(note)
+    }
+
+    async getOne(name?: string): Promise<Note> {
+        return await window.backendApi.getOne(name)
     }
 }
 

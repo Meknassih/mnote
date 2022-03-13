@@ -10,6 +10,7 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "target": "es2021",
     "paths": {
       "*": [
         "node_modules/*"

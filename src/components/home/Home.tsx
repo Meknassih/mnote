@@ -23,15 +23,16 @@ export default class Home extends React.Component<{}, HomeState> {
 
     async save() {
         const noteContent = await this.state.editorInstance.save()
-        const result = await notesService.save(noteContent)
+        const result = await notesService.save({
+            name: "",
+            data: noteContent
+        })
         console.log("save result", result)
     }
 
     componentDidMount() {
-        this.setState({
-            editorInstance: new EditorJS({
-                onReady: () => {
-                },
+        notesService.getOne().then(({ data }) => {
+            const editorInstance = new EditorJS({
                 holder: "editor",
                 placeholder: 'Start typing your note...',
                 tools: {
@@ -62,7 +63,9 @@ export default class Home extends React.Component<{}, HomeState> {
                         inlineToolbar: true,
                     },
                 },
+                data
             })
+            this.setState({ editorInstance })
         })
     }
 

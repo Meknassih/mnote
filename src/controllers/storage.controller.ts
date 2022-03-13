@@ -1,19 +1,28 @@
 import { app } from 'electron';
 import { join } from 'path'
-import { Low, JSONFile } from 'lowdb'
+import { Low, JSONFile, Adapter } from 'lowdb'
+import { OutputData } from '@editorjs/editorjs';
+import lodash from 'lodash'
 
-type Note = {
-    time: number;
-    blocks: any[];
-    version: string;
+export type Note = {
+    name: string;
+    data: OutputData;
 }
 
 type DatabaseSchema = {
     notes: Note[]
 }
 
+// Extend Low class with a new `chain` field
+class LowWithLodash<T> extends Low<T> {
+    /* constructor(adapter: Adapter<T>) {
+        super(adapter)
+    } */
+    chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data')
+}
+
 class StorageController {
-    db: Low<DatabaseSchema>;
+    db: LowWithLodash<DatabaseSchema>;
     isReady: boolean;
 
     constructor() {
@@ -22,7 +31,7 @@ class StorageController {
         const dbPath = join(app.getPath("userData"), "mnote_database.json")
         console.log("StorageController database path", dbPath)
         const adapter = new JSONFile<DatabaseSchema>(dbPath)
-        this.db = new Low(adapter)
+        this.db = new LowWithLodash<DatabaseSchema>(adapter)
         this.init()
     }
 
