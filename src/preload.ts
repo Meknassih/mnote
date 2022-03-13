@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    saveAll: () => ipcRenderer.invoke('notes:saveAll')
+    saveAll: (data: any) => ipcRenderer.invoke('notes:saveAll', data)
 })
