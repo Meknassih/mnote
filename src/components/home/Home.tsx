@@ -4,6 +4,7 @@ import NotesList from '../notesList/NotesList'
 import SaveButton from '../notesList/SaveButton'
 import notesService from '../../services/notes.service';
 import EditorJS from "@editorjs/editorjs";
+import { Note } from '../../controllers/storage.controller';
 const Header = require('@editorjs/header');
 const NestedList = require('@editorjs/nested-list');
 const Marker = require('@editorjs/marker');
@@ -12,26 +13,29 @@ const Table = require('@editorjs/table');
 const Checklist = require('@editorjs/checklist');
 
 interface HomeState {
-    editorInstance: EditorJS
+    editorInstance: EditorJS,
+    activeNote: Note;
 }
 
 export default class Home extends React.Component<{}, HomeState> {
     constructor(props: {}) {
         super(props)
-        this.state = { editorInstance: null }
+        this.state = { editorInstance: null, activeNote: null }
     }
 
     async save() {
         const noteContent = await this.state.editorInstance.save()
         const result = await notesService.save({
             name: "",
-            data: noteContent
+            data: noteContent,
+            children: []
         })
         console.log("save result", result)
     }
 
     componentDidMount() {
-        notesService.getOne().then(({ data }) => {
+        notesService.getOne().then(note => {
+            this.setState({ activeNote: note })
             const editorInstance = new EditorJS({
                 holder: "editor",
                 placeholder: 'Start typing your note...',
@@ -63,21 +67,25 @@ export default class Home extends React.Component<{}, HomeState> {
                         inlineToolbar: true,
                     },
                 },
-                data
+                data: note.data
             })
             this.setState({ editorInstance })
         })
     }
 
     render() {
-        return <div className="flex flex-row h-full">
-            <div className="basis-1/3">
+        return <>
+            <div className="flex flex-row">
                 <SaveButton onClick={() => this.save()}></SaveButton>
-                <NotesList></NotesList>
             </div>
-            <div className="basis-2/3">
-                <Editor></Editor>
+            <div className="flex flex-row h-full">
+                <div className="basis-1/3">
+                    <NotesList></NotesList>
+                </div>
+                <div className="basis-2/3">
+                    <Editor></Editor>
+                </div>
             </div>
-        </div>
+        </>
     }
 }

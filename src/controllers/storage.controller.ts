@@ -7,6 +7,7 @@ import lodash from 'lodash'
 export type Note = {
     name: string;
     data: OutputData;
+    children: Note[]
 }
 
 type DatabaseSchema = {
