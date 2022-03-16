@@ -33,6 +33,18 @@ export default class Home extends React.Component<{}, HomeState> {
         console.log("save result", result)
     }
 
+    onNoteSelected(note: Note) {
+        this.setState({
+            activeNote: note
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<HomeState>, snapshot?: any): void {
+        if (prevState.activeNote !== this.state.activeNote && this.state.editorInstance) {
+            this.state.editorInstance.render(this.state.activeNote.data)
+        }
+    }
+
     componentDidMount() {
         notesService.getOne().then(note => {
             this.setState({ activeNote: note })
@@ -80,7 +92,7 @@ export default class Home extends React.Component<{}, HomeState> {
             </div>
             <div className="flex flex-row h-full">
                 <div className="basis-1/3">
-                    <NotesList></NotesList>
+                    <NotesList onNoteSelected={(selectedNote: Note) => this.onNoteSelected(selectedNote)}></NotesList>
                 </div>
                 <div className="basis-2/3">
                     <Editor></Editor>

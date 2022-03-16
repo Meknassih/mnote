@@ -3,7 +3,8 @@ import { Note } from '../../controllers/storage.controller';
 import NoteItem from './NoteItem';
 
 interface NoteParentItemProps {
-    item: Note
+    item: Note;
+    onSelected?: Function;
 }
 interface NoteParentItemState {
     isExpanded: boolean;
@@ -14,8 +15,10 @@ export default class NoteParentItem extends React.Component<NoteParentItemProps,
         super(props)
         this.state = { isExpanded: false }
     }
+
     toggleExpansion() {
         this.setState({ isExpanded: !this.state.isExpanded })
+        this.props.onSelected(this.props.item)
     }
 
     render() {
