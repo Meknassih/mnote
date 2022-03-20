@@ -40,6 +40,10 @@ export default class Home extends React.Component<{}, HomeState> {
         })
     }
 
+    onAddNote(parent?: Note) {
+        // TODO: notesService.addOne() and setState()
+    }
+
     componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<HomeState>, snapshot?: any): void {
         if (prevState.activeNote !== this.state.activeNote && this.state.editorInstance) {
             this.state.editorInstance.render(this.state.activeNote.data)
@@ -95,7 +99,7 @@ export default class Home extends React.Component<{}, HomeState> {
             </div>
             <div className="flex flex-row h-full">
                 <div className="basis-1/3">
-                    <NotesList onNoteSelected={(selectedNote: Note) => this.onNoteSelected(selectedNote)} notes={this.state.notes}></NotesList>
+                    <NotesList onNoteSelected={(selectedNote: Note) => this.onNoteSelected(selectedNote)} onAddNote={(parent?: Note) => this.onAddNote(parent)} notes={this.state.notes}></NotesList>
                 </div>
                 <div className="basis-2/3">
                     <Editor></Editor>
