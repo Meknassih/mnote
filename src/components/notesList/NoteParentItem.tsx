@@ -26,7 +26,7 @@ export default class NoteParentItem extends React.Component<NoteParentItemProps,
             <div onClick={() => this.toggleExpansion()}>
                 <NoteItem item={this.props.item} icon={React.Children.count(this.props.children) > 0 ? "+" : ""}></NoteItem>
             </div>
-            <div className={`${this.state.isExpanded ? "opacity-100" : "opacity-0 hidden"} relative left-2`}>
+            <div className={`${this.state.isExpanded ? "opacity-100" : "opacity-0 hidden"} relative left-4 border-l-2`}>
                 {this.props.children}
             </div>
         </>

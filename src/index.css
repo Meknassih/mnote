@@ -28,13 +28,16 @@
     @apply font-bold;
   }
   button {
-    @apply rounded-md border-2 border-solid border-slate-500 px-2 py-1 font-semibold;
+    @apply rounded-md border border-solid border-slate-500 bg-slate-100 px-2 py-1 font-semibold;
   }
   button:hover {
-    @apply rounded-md border-2 border-solid border-slate-300 px-2 py-1 bg-slate-700 text-slate-50;
+    @apply bg-slate-500 text-slate-50;
   }
   button:active {
-    @apply rounded-md border-2 border-solid border-slate-500 px-2 py-1 bg-slate-500 text-slate-50;
+    @apply bg-slate-500 text-slate-50;
+  }
+  button:focus {
+    @apply ring ring-slate-200;
   }
 }
 
