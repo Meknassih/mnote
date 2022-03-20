@@ -8,6 +8,10 @@ class NotesService {
     async getOne(name?: string): Promise<Note> {
         return await window.backendApi.getOne(name)
     }
+
+    async getAll(): Promise<Note[]> {
+        return await window.backendApi.getAll()
+    }
 }
 
 const notesService = new NotesService();

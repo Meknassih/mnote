@@ -15,12 +15,13 @@ const Checklist = require('@editorjs/checklist');
 interface HomeState {
     editorInstance: EditorJS,
     activeNote: Note;
+    notes: Note[];
 }
 
 export default class Home extends React.Component<{}, HomeState> {
     constructor(props: {}) {
         super(props)
-        this.state = { editorInstance: null, activeNote: null }
+        this.state = { editorInstance: null, activeNote: null, notes: null }
     }
 
     async save() {
@@ -46,8 +47,10 @@ export default class Home extends React.Component<{}, HomeState> {
     }
 
     componentDidMount() {
-        notesService.getOne().then(note => {
-            this.setState({ activeNote: note })
+        notesService.getAll().then(notes => {
+            this.setState({
+                notes
+            })
             const editorInstance = new EditorJS({
                 holder: "editor",
                 placeholder: 'Start typing your note...',
@@ -79,7 +82,7 @@ export default class Home extends React.Component<{}, HomeState> {
                         inlineToolbar: true,
                     },
                 },
-                data: note.data
+                // data: notes[0].data
             })
             this.setState({ editorInstance })
         })
@@ -92,7 +95,7 @@ export default class Home extends React.Component<{}, HomeState> {
             </div>
             <div className="flex flex-row h-full">
                 <div className="basis-1/3">
-                    <NotesList onNoteSelected={(selectedNote: Note) => this.onNoteSelected(selectedNote)}></NotesList>
+                    <NotesList onNoteSelected={(selectedNote: Note) => this.onNoteSelected(selectedNote)} notes={this.state.notes}></NotesList>
                 </div>
                 <div className="basis-2/3">
                     <Editor></Editor>

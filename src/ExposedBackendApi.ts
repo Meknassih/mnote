@@ -7,5 +7,8 @@ export default {
     },
     getOne: (name?: string): Promise<Note> => {
         return ipcRenderer.invoke('notes:getOne', name)
-    }
+    },
+    getAll: (): Promise<Note[]> => {
+        return ipcRenderer.invoke('notes:getAll')
+    },
 }

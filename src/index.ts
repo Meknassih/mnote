@@ -36,6 +36,7 @@ const createWindow = (): void => {
 app.on('ready', () => {
   ipcMain.handle('notes:save', notesController.save)
   ipcMain.handle('notes:getOne', notesController.getOne)
+  ipcMain.handle('notes:getAll', notesController.getAll)
   createWindow();
 });
 

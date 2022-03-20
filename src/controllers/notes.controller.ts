@@ -23,6 +23,14 @@ class NotesController {
         console.log("getOne", note)
         return note;
     }
+
+    getAll(event: IpcMainInvokeEvent): Note[] {
+        console.log("getAll storage ready?", storageController.isReady)
+        const notes = storageController.db.chain
+            .get("notes").value()
+        console.log("getAll notes", notes);
+        return notes;
+    }
 }
 
 const notesController = new NotesController();
